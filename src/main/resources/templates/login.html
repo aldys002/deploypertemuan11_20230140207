@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sistem Informasi</title>
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            /* Mengubah background utama menjadi abu-abu super ringan agar serasi dengan dashboard */
+            background-color: #f8f9fa;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-card {
+            border: none;
+            /* Mengubah kelengkungan sudut card menjadi 16px agar lebih modern */
+            border-radius: 16px;
+            /* Mengubah bayangan card menjadi lebih halus dan menyebar */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            width: 100%;
+            max-width: 400px;
+        }
+        /* Mengubah warna tombol utama menjadi gradasi ungu-pink sesuai tema baru */
+        .btn-custom {
+            background: linear-gradient(135deg, #6f42c1 0%, #d63384 100%);
+            border: none;
+            color: white;
+            transition: opacity 0.2s ease;
+        }
+        .btn-custom:hover, .btn-custom:focus {
+            opacity: 0.9;
+            color: white;
+        }
+        /* Mengubah warna link 'Daftar Sekarang' menjadi warna ungu */
+        .link-custom {
+            color: #6f42c1;
+        }
+        .link-custom:hover {
+            color: #d63384;
+        }
+        /* Menghaluskan tampilan border input saat diklik */
+        .form-control:focus {
+            border-color: #6f42c1;
+            box-shadow: 0 0 0 0.25rem rgba(111, 66, 193, 0.15);
+        }
+    </style>
+</head>
+<body>
+
+<div class="card login-card p-4">
+    <div class="card-body">
+        <h3 class="text-center fw-bold text-dark mb-2">Selamat Datang</h3>
+        <p class="text-center text-muted small mb-4">Silakan masuk menggunakan akun Anda</p>
+
+        <!-- Notifikasi Error dari Spring Security (?error) -->
+        <div th:if="${param.error}" class="alert alert-danger text-center small p-2" role="alert">
+            Username atau password salah!
+        </div>
+
+        <!-- Notifikasi Setelah Logout (?logout) -->
+        <div th:if="${param.logout}" class="alert alert-success text-center small p-2" role="alert">
+            Anda telah berhasil logout.
+        </div>
+
+        <form th:action="@{/login}" method="post">
+            <div class="mb-3">
+                <label for="username" class="form-label small fw-bold">Username</label>
+                <input type="text" id="username" name="username" class="form-placeholder form-control" placeholder="Masukkan username" required autofocus>
+            </div>
+            <div class="mb-4">
+                <label for="password" class="form-label small fw-bold">Password</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Masukkan password" required>
+            </div>
+            <!-- Mengganti class btn-primary menjadi btn-custom untuk menerapkan warna baru -->
+            <button type="submit" class="btn btn-custom w-100 py-2 fw-bold">Masuk</button>
+        </form>
+
+        <div class="text-center mt-4">
+            <!-- Mengganti class text-decoration-none menjadi link-custom -->
+            <p class="text-muted small mb-0">Belum punya akun? <a th:href="@{/register}" class="link-custom text-decoration-none fw-bold">Daftar Sekarang</a></p>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
